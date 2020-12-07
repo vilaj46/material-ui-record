@@ -1,0 +1,91 @@
+.range {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageRanges {
+  display: flex;
+}
+
+.modalButtons {
+  padding-top: 24px;
+}
+
+.titleItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 2px solid red;
+}
+
+.titleText {
+  width: 75% !important;
+}
+
+.titleNumber {
+  width: 30% !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0 !important;
+}
+
+.addTitleButton {
+  text-align: center;
+}
+
+.headerPositioningWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.examplePageWrapper {
+  position: relative;
+  width: 50%;
+  padding-bottom: 20%;
+  border: 2px solid black;
+}
+
+.examplePage {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.examplePageTop {
+  top: 0;
+  margin-top: 5px;
+}
+
+.examplePageBottom {
+  bottom: 0;
+  margin-bottom: 5px;
+}
+
+.examplePageNumber {
+  margin: 0;
+  padding: 0;
+}
+
+.examplePageText {
+  margin: 0;
+  padding: 0;
+}
+
+.sampleTextWrapper {
+  display: flex;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.sampleText {
+  display: flex;
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: 1px;
+  align-items: center;
+  margin: 0 auto;
+}

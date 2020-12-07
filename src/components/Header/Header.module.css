@@ -1,0 +1,9 @@
+.header {
+  display: flex;
+}
+
+.fileName {
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+}
