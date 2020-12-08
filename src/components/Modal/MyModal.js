@@ -4,12 +4,13 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 
 import { useModal, useModalUpdate } from "../Context/ModalProvider";
 
 import HeaderModal from "./modals/HeaderModal/HeaderModal";
 
-import style from "./Modal.module.css";
+import styles from "./Modal.module.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -58,7 +59,7 @@ export default function MyModal() {
         <Fade in={modal.length > 0} id="modalFade">
           <div className={classes.paper}>
             {modal === "headers" && <HeaderModal />}
-            <div className={style.modalButtons}>
+            <div className={styles.modalButtons}>
               <Button variant="contained" color="primary">
                 OK
               </Button>
@@ -70,6 +71,11 @@ export default function MyModal() {
                 Cancel
               </Button>
             </div>
+            <CloseIcon
+              onClick={handleClose}
+              size="small"
+              className={styles.headerX}
+            />
           </div>
         </Fade>
       </Modal>

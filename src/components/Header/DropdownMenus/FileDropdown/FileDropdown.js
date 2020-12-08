@@ -6,9 +6,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { useFile, useFileUpdate } from "../../../Context/FileProvider";
 
-// Sub Component 
-import OpenButton from './subs/OpenButton';
-import CloseButton from './subs/CloseButton';
+// Sub Component
+import OpenButton from "./subs/OpenButton";
+import CloseButton from "./subs/CloseButton";
 
 const StyledMenu = withStyles({
   paper: {
@@ -83,30 +83,3 @@ export default function Dropdown() {
     </div>
   );
 }
-
-// const OpenButton = React.forwardRef(({ openFile, handleClose }, ref) => {
-//   return (
-//     <StyledMenuItem onClick={() => openFileAction(openFile, handleClose)}>
-//       <ListItemIcon>
-//         <FolderIcon fontSize="small" />
-//       </ListItemIcon>
-//       <ListItemText primary="Open" />
-//     </StyledMenuItem>
-//   );
-// });
-
-// const CloseButton = ({ closeFile, handleClose, file }) => {
-//   const disabled =
-//     file.name.length === 0 || file.blob.length === 0 ? true : false;
-//   return (
-//     <StyledMenuItem
-//       onClick={() => closeFileAction(closeFile, handleClose)}
-//       disabled={disabled}
-//     >
-//       <ListItemIcon>
-//         <CloseIcon fontSize="small" />
-//       </ListItemIcon>
-//       <ListItemText primary="Exit" />
-//     </StyledMenuItem>
-//   );
-// };
