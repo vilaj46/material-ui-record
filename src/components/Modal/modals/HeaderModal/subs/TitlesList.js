@@ -19,7 +19,7 @@ export default function TitlesList({ titlesList, setTitlesList }) {
   const classes = useStyles();
 
   /**
-   * Needs fixing.
+   * Needs fixing on the animation / timeout.
    */
   const addItem = () => {
     let newTitlesList = [...titlesList];
@@ -31,6 +31,7 @@ export default function TitlesList({ titlesList, setTitlesList }) {
     }, 50);
   };
 
+
   const insertAbove = (index) => {
     const newItem = { title: "", pageNumber: "" };
     let newTitlesList = [...titlesList];
@@ -38,7 +39,19 @@ export default function TitlesList({ titlesList, setTitlesList }) {
     setTitlesList(newTitlesList);
   };
 
-  console.log(titlesList);
+  const insertBelow = (index) => {
+    const newItem = { title: "", pageNumber: "" };
+    let newTitlesList = [...titlesList];
+    newTitlesList.splice(index + 1, 0, newItem);
+    setTitlesList(newTitlesList);
+  }
+
+  const remove = (index) => {
+    let newTitlesList = [...titlesList];
+    newTitlesList.splice(index, 1);
+    setTitlesList(newTitlesList);
+  }
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       {titlesList.map((t, i) => {
@@ -51,6 +64,8 @@ export default function TitlesList({ titlesList, setTitlesList }) {
             setTitlesList={setTitlesList}
             titlesList={titlesList}
             insertAbove={insertAbove}
+            insertBelow={insertBelow}
+            remove={remove}
           />
         );
       })}

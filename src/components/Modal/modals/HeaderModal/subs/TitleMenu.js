@@ -15,8 +15,10 @@ const StyledMenu = withStyles({
   }
 
   let calculatedX = 0;
-  if (item !== null) {
+  if (item !== null && props.tar === 'Title') {
     calculatedX = Number(item.offsetWidth) - Number(props.x);
+  } else if (item !== null && props.tar === 'Page Number') {
+    calculatedX = item.children[1].offsetWidth - Number(props.x) + 50;
   }
 
   return (
@@ -47,6 +49,8 @@ export default function TitleMenu({
   closeMenu,
   id,
   insertAbove,
+  insertBelow,
+  remove,
 }) {
   const [loaded, setLoaded] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -70,11 +74,12 @@ export default function TitleMenu({
           onClose={() => closeMenu()}
           x={menuPosition[0]}
           y={menuPosition[1]}
+          tar={menuPosition[2]}
           myid={id}
         >
           <InsertAbove insertAbove={insertAbove} id={id} />
-          <InsertBelow />
-          <RemoveItem />
+          <InsertBelow insertBelow={insertBelow}/>
+          <RemoveItem remove={remove} />
         </StyledMenu>
       )}
     </div>
@@ -91,7 +96,7 @@ const InsertAbove = React.forwardRef((props, ref) => {
 
 const InsertBelow = React.forwardRef((props, ref) => {
   return (
-    <StyledMenuItem>
+    <StyledMenuItem onClick={() => props.insertBelow(props.id)}>
       <ListItemText primary="Insert Below" />
     </StyledMenuItem>
   );
@@ -99,7 +104,7 @@ const InsertBelow = React.forwardRef((props, ref) => {
 
 const RemoveItem = React.forwardRef((props, ref) => {
   return (
-    <StyledMenuItem>
+    <StyledMenuItem onClick={() => props.remove(props.id)}>
       <ListItemText primary="Remove Item" />
     </StyledMenuItem>
   );

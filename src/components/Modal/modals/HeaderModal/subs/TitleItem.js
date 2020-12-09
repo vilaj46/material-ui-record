@@ -12,18 +12,20 @@ export default function TitleItem({
   id,
   setTitlesList,
   insertAbove,
+  insertBelow, 
+  remove
 }) {
   const [loaded, setLoaded] = useState(false);
   const [displayMenu, setDisplayMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState([0, 0]);
-  const [currentTitle, setCurrentTitle] = useState("");
+  const [currentTitle, setCurrentTitle] = useState(title);
   const [currentPageNumber, setCurrentPageNumber] = useState(pageNumber);
   const [timer, setTimer] = useState(null);
   const [titleError, setTitleError] = useState(false);
   const [pageNumberError, setPageNumberError] = useState(false);
   const DELAY = 500;
   const documentPages = 1000; // Just for testing.
-
+  console.log(title, id);
   const handleChange = (e) => {
     clearTimeout(timer);
     const { placeholder, value } = e.target;
@@ -102,8 +104,9 @@ export default function TitleItem({
         element.addEventListener("contextmenu", (e) => {
           if (e.ctrlKey) {
             e.preventDefault();
+            const tar = e.target.placeholder === 'Page Number' ? 'Page Number' : 'Title';
             if (!displayMenu) {
-              setMenuPosition([e.layerX, e.layerY]);
+              setMenuPosition([e.layerX, e.layerY, tar]);
               setDisplayMenu(true);
               return;
             }
@@ -142,6 +145,8 @@ export default function TitleItem({
         closeMenu={() => setDisplayMenu(false)}
         id={id}
         insertAbove={insertAbove}
+        insertBelow={insertBelow}
+        remove={remove}
       />
     </div>
   );
