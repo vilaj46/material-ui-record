@@ -22,35 +22,82 @@ export default function TitlesList({ titlesList, setTitlesList }) {
    * Needs fixing on the animation / timeout.
    */
   const addItem = () => {
-    let newTitlesList = [...titlesList];
-    newTitlesList.push({ title: "", pageNumber: "" });
-    setTitlesList([...newTitlesList]);
+    const newList = [...titlesList];
+    newList.push({
+      title: "",
+      pageNumber: "",
+      id: Math.random(1000),
+    });
+
+    setTitlesList(newList);
     setTimeout(() => {
       const modalFade = document.getElementById("modalFade");
       modalFade.scrollTop = modalFade.scrollHeight;
-    }, 50);
+    }, 500);
   };
 
+  const insertItemAbove = (id) => {
+    let indexOf = null;
+    for (let i = 0; i < titlesList.length; i++) {
+      const currentItem = titlesList[i];
+      if (currentItem.id === id) {
+        indexOf = i;
+        break;
+      }
+    }
 
-  const insertAbove = (index) => {
-    const newItem = { title: "", pageNumber: "" };
-    let newTitlesList = [...titlesList];
-    newTitlesList.splice(index, 0, newItem);
-    setTitlesList(newTitlesList);
+    if (indexOf >= 0) {
+      const newItem = {
+        title: "",
+        pageNumber: "",
+        id: Math.random(1000),
+      };
+      const newList = [...titlesList];
+      newList.splice(indexOf, 0, newItem);
+      setTitlesList(newList);
+    }
   };
 
-  const insertBelow = (index) => {
-    const newItem = { title: "", pageNumber: "" };
-    let newTitlesList = [...titlesList];
-    newTitlesList.splice(index + 1, 0, newItem);
-    setTitlesList(newTitlesList);
-  }
+  const insertItemBelow = (id) => {
+    let indexOf = null;
 
-  const remove = (index) => {
-    let newTitlesList = [...titlesList];
-    newTitlesList.splice(index, 1);
-    setTitlesList(newTitlesList);
-  }
+    for (let i = 0; i < titlesList.length; i++) {
+      const currentItem = titlesList[i];
+      if (currentItem.id === id) {
+        indexOf = i;
+        break;
+      }
+    }
+
+    if (indexOf >= 0) {
+      const newItem = {
+        title: "",
+        pageNumber: "",
+        id: Math.random(1000),
+      };
+      const newList = [...titlesList];
+      newList.splice(indexOf + 1, 0, newItem);
+      setTitlesList(newList);
+    }
+  };
+
+  const removeItem = (id) => {
+    let indexOf = null;
+
+    for (let i = 0; i < titlesList.length; i++) {
+      const currentItem = titlesList[i];
+      if (currentItem.id === id) {
+        indexOf = i;
+        break;
+      }
+    }
+
+    if (indexOf >= 0) {
+      const newList = [...titlesList];
+      newList.splice(indexOf, 1);
+      setTitlesList(newList);
+    }
+  };
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -60,12 +107,12 @@ export default function TitlesList({ titlesList, setTitlesList }) {
             title={t.title}
             pageNumber={t.pageNumber}
             key={i}
-            id={i}
+            id={t.id}
             setTitlesList={setTitlesList}
             titlesList={titlesList}
-            insertAbove={insertAbove}
-            insertBelow={insertBelow}
-            remove={remove}
+            insertItemAbove={insertItemAbove}
+            insertItemBelow={insertItemBelow}
+            removeItem={removeItem}
           />
         );
       })}

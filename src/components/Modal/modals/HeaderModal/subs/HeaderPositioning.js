@@ -7,12 +7,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 
 import styles from "../../../Modal.module.css";
 
-function HeaderPositioning({ rangeValue, pageRange, titlesList, headerText }) {
+function HeaderPositioning() {
   const [position, setPosition] = useState("top");
-
-  const handleChange = (e) => {
-    setPosition(e.target.value);
-  };
 
   return (
     <div className={styles.headerPositioningWrapper}>
@@ -21,7 +17,7 @@ function HeaderPositioning({ rangeValue, pageRange, titlesList, headerText }) {
         <RadioGroup
           aria-label="position"
           name="position1"
-          onChange={handleChange}
+          onChange={(e) => setPosition(e.target.value)}
           value={position}
         >
           <FormControlLabel value="top" control={<Radio />} label="Top" />

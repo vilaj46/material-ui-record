@@ -11,4 +11,6 @@ ReactDOM.render(<App />, document.getElementById("root"));
  *
  * Do not go by indexes in the titles list.
  * Continue implementing the insert / remove.
+ *
+ * right clicking the page number input throws us off.
  */

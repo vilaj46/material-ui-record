@@ -9,22 +9,24 @@ const StyledMenu = withStyles({
     border: "1px solid #d3d4d5",
   },
 })((props) => {
-  let item = null;
-  if (props.myid >= 0) {
-    item = document.getElementById(`${props.myid}Menu`).parentElement;
-  }
-
   let calculatedX = 0;
-  if (item !== null && props.tar === 'Title') {
-    calculatedX = Number(item.offsetWidth) - Number(props.x);
-  } else if (item !== null && props.tar === 'Page Number') {
-    calculatedX = item.children[1].offsetWidth - Number(props.x) + 50;
+
+  // Given the position of the right click
+  // calculate the position of the menu.
+  // menupositio = [x, y, target, width of target].
+  if (props.menuposition[2] === "Title") {
+    calculatedX = props.menuposition[3] - props.menuposition[0];
+  } else {
+    calculatedX = props.menuposition[0];
   }
 
   return (
     <Menu
       elevation={0}
-      anchorPosition={{ left: props.x, top: props.y }}
+      anchorPosition={{
+        left: props.menuposition[0],
+        top: props.menuposition[1],
+      }}
       getContentAnchorEl={null}
       {...props}
       style={{ top: "5px", left: `-${calculatedX}px` }}
@@ -48,20 +50,18 @@ export default function TitleMenu({
   menuPosition,
   closeMenu,
   id,
-  insertAbove,
-  insertBelow,
-  remove,
+  insertItemAbove,
+  insertItemBelow,
+  removeItem,
 }) {
   const [loaded, setLoaded] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   useEffect(() => {
-    if (!loaded) {
-      const ele = document.getElementById(`${id}Menu`);
-      setAnchorEl(ele);
-      setLoaded(true);
-    }
-  }, [loaded, setLoaded, setAnchorEl, anchorEl, id, menuPosition]);
+    const element = document.getElementById(`${id}Menu`);
+    setAnchorEl(element);
+    setLoaded(true);
+  }, [loaded, setLoaded, setAnchorEl, anchorEl, id]);
 
   return (
     <div id={`${id}Menu`}>
@@ -72,14 +72,20 @@ export default function TitleMenu({
           keepMounted
           open={displayMenu}
           onClose={() => closeMenu()}
-          x={menuPosition[0]}
-          y={menuPosition[1]}
-          tar={menuPosition[2]}
+          menuposition={menuPosition}
           myid={id}
         >
-          <InsertAbove insertAbove={insertAbove} id={id} />
-          <InsertBelow insertBelow={insertBelow}/>
-          <RemoveItem remove={remove} />
+          <InsertAbove
+            id={id}
+            insertItemAbove={insertItemAbove}
+            closeMenu={closeMenu}
+          />
+          <InsertBelow
+            id={id}
+            insertItemBelow={insertItemBelow}
+            closeMenu={closeMenu}
+          />
+          <RemoveItem id={id} removeItem={removeItem} closeMenu={closeMenu} />
         </StyledMenu>
       )}
     </div>
@@ -87,24 +93,36 @@ export default function TitleMenu({
 }
 
 const InsertAbove = React.forwardRef((props, ref) => {
+  const onClick = () => {
+    props.insertItemAbove(props.id);
+    props.closeMenu();
+  };
   return (
-    <StyledMenuItem onClick={() => props.insertAbove(props.id)}>
+    <StyledMenuItem onClick={onClick}>
       <ListItemText primary="Insert Above" />
     </StyledMenuItem>
   );
 });
 
 const InsertBelow = React.forwardRef((props, ref) => {
+  const onClick = () => {
+    props.insertItemBelow(props.id);
+    props.closeMenu();
+  };
   return (
-    <StyledMenuItem onClick={() => props.insertBelow(props.id)}>
+    <StyledMenuItem onClick={onClick}>
       <ListItemText primary="Insert Below" />
     </StyledMenuItem>
   );
 });
 
 const RemoveItem = React.forwardRef((props, ref) => {
+  const onClick = () => {
+    props.removeItem(props.id);
+    props.closeMenu();
+  };
   return (
-    <StyledMenuItem onClick={() => props.remove(props.id)}>
+    <StyledMenuItem onClick={onClick}>
       <ListItemText primary="Remove Item" />
     </StyledMenuItem>
   );

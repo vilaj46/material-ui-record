@@ -6,10 +6,6 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
 function PageRangeFields({ rangeValue, formatHeaderTextOnRangeChange }) {
-  const handleChange = (e) => {
-    formatHeaderTextOnRangeChange(e.target.value);
-  };
-
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Page Range Options...</FormLabel>
@@ -17,7 +13,7 @@ function PageRangeFields({ rangeValue, formatHeaderTextOnRangeChange }) {
         aria-label="pagerange"
         name="pagerange"
         value={rangeValue}
-        onChange={handleChange}
+        onChange={(e) => formatHeaderTextOnRangeChange(e.target.value)}
       >
         <FormControlLabel value="All" control={<Radio />} label="All" />
         <FormControlLabel
@@ -25,11 +21,7 @@ function PageRangeFields({ rangeValue, formatHeaderTextOnRangeChange }) {
           control={<Radio />}
           label="Pages From"
         />
-        <FormControlLabel
-          value="None"
-          control={<Radio />}
-          label="None"
-        />
+        <FormControlLabel value="None" control={<Radio />} label="None" />
       </RadioGroup>
     </FormControl>
   );

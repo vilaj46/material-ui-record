@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -28,8 +29,9 @@ function PageNumberFields({
 
     // Is value a number.
     const isNumber = isValidNumber(value);
-    let sError = startError;
-    let eError = endError;
+
+    let sError = startError; // Page number start error.
+    let eError = endError; // Page number end error.
     let pageNumberStart = Number(pageRange.start);
     let pageNumberEnd = Number(pageRange.end);
 
@@ -101,6 +103,11 @@ function PageNumberFields({
   );
 }
 
+/**
+ * @param {Number} potential
+ * @return {Boolean}
+ * Checks if the potential number is a number.
+ */
 function isValidNumber(potential) {
   if (Number(potential) === 0) {
     return false;
