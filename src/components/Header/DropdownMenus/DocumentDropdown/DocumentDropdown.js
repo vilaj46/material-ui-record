@@ -44,7 +44,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function Dropdown({ updateFile }) {
+export default function Dropdown() {
   const file = useFile();
   const { openModal } = useModalUpdate();
 
@@ -59,7 +59,10 @@ export default function Dropdown({ updateFile }) {
   };
 
   return (
-    <div>
+    <div
+      data-testid="document-dropdown"
+      className={anchorEl === null ? "closed" : "opened"}
+    >
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
@@ -67,7 +70,7 @@ export default function Dropdown({ updateFile }) {
         color="primary"
         onClick={handleClick}
         className={styles.menu}
-        disabled={file.name.length > 0 && file.blob.length > 0 ? false : true}
+        disabled={file.name.length > 0 ? false : true}
       >
         Document
       </Button>

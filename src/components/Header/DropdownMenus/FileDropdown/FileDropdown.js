@@ -56,7 +56,10 @@ export default function Dropdown() {
   };
 
   return (
-    <div>
+    <div
+      data-testid="file-dropdown"
+      className={anchorEl === null ? "closed" : "opened"}
+    >
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"

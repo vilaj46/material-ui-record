@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 
+import uploadFile from "../../api/uploadFile.js";
+
 const FileContext = React.createContext();
 const FileUpdateContext = React.createContext();
 
@@ -16,16 +18,21 @@ function FileProvider({ children }) {
 
   /**
    * @param {File} file
-   * 
+   *
    * If we open a file in our File Dropdown Menu.
-   * 
+   *
    * Create a blob of the file and grab the name of the file.
-   * Will display the PDF in the body and the name will appear at the top 
+   * Will display the PDF in the body and the name will appear at the top
    * of th header.
    */
-  const openFile = (file) => {
-    const blob = URL.createObjectURL(file);
-    setState({ ...state, blob, name: file.name });
+  const openFile = async (file) => {
+    try {
+      const uploadedFile = await uploadFile(file);
+      const blob = URL.createObjectURL(uploadedFile);
+      setState({ ...state, blob, name: file.name });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   /**
