@@ -6,6 +6,7 @@ import { useFile } from "../Context/FileProvider";
 import styles from "./Body.module.css";
 
 import MyModal from "../Modal/MyModal";
+import LoadingFile from "./LoadingFile";
 
 function Body() {
   const file = useFile();
@@ -19,6 +20,7 @@ function Body() {
           className={styles.pdf}
         ></iframe>
       )}
+      {file.loadingFile && <LoadingFile />}
     </div>
   );
 }

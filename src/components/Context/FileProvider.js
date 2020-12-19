@@ -19,6 +19,7 @@ function FileProvider({ children }) {
     blob: "",
     uploadError: false,
     headerMessage: "",
+    loadingFile: false,
   });
 
   /**
@@ -31,16 +32,24 @@ function FileProvider({ children }) {
    * of th header.
    */
   const openFile = async (file) => {
+    setState({ ...state, loadingFile: true });
     try {
       const response = await uploadFile(file);
       if (response.status === 200) {
         const blob = URL.createObjectURL(file);
-        setState({ ...state, blob, name: file.name, headerMessage: file.name });
+        setState({
+          ...state,
+          blob,
+          name: file.name,
+          headerMessage: file.name,
+          loadingFile: false,
+        });
       } else {
         setState({
           ...state,
           uploadError: true,
           headerMessage: response.message,
+          loadingFile: false,
         });
       }
     } catch (err) {
@@ -48,6 +57,7 @@ function FileProvider({ children }) {
         ...state,
         uploadError: true,
         headerMessage: "Something went wrong.",
+        loadingFile: false,
       });
     }
   };
