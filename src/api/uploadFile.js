@@ -9,14 +9,23 @@ export default async function uploadFile(file) {
     url: "/upload",
     headers: { "Access-Control-Allow-Origin": "*" },
     data,
-    responseType: "blob",
   };
 
   try {
     const res = await axios(config);
     const { data } = res;
-    return data;
+    return { ...data, status: 200 };
   } catch (err) {
-    console.log(err);
+    if (err.response) {
+      return {
+        status: err.response.status,
+        message: err.response.data,
+      };
+    } else {
+      return {
+        status: 400,
+        message: "Bad request!",
+      };
+    }
   }
 }

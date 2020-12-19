@@ -14,7 +14,12 @@ export function useFileUpdate() {
 }
 
 function FileProvider({ children }) {
-  const [state, setState] = useState({ name: "", blob: "" });
+  const [state, setState] = useState({
+    name: "",
+    blob: "",
+    uploadError: false,
+    headerMessage: "",
+  });
 
   /**
    * @param {File} file
@@ -27,11 +32,23 @@ function FileProvider({ children }) {
    */
   const openFile = async (file) => {
     try {
-      const uploadedFile = await uploadFile(file);
-      const blob = URL.createObjectURL(uploadedFile);
-      setState({ ...state, blob, name: file.name });
+      const response = await uploadFile(file);
+      if (response.status === 200) {
+        const blob = URL.createObjectURL(file);
+        setState({ ...state, blob, name: file.name, headerMessage: file.name });
+      } else {
+        setState({
+          ...state,
+          uploadError: true,
+          headerMessage: response.message,
+        });
+      }
     } catch (err) {
-      console.log(err);
+      setState({
+        ...state,
+        uploadError: true,
+        headerMessage: "Something went wrong.",
+      });
     }
   };
 

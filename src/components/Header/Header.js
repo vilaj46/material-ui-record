@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFile } from "../Context/FileProvider";
 
 // Dropdown Menus
@@ -14,7 +14,7 @@ export default function Header() {
     <header className={styles.header}>
       <FileDropdown />
       <DocumentDropdown />
-      <h1 className={styles.fileName}>{file.name}</h1>
+      <h1 className={styles.fileName}>{file.headerMessage}</h1>
     </header>
   );
 }
