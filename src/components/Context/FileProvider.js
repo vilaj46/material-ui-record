@@ -17,7 +17,6 @@ function FileProvider({ children }) {
   const [state, setState] = useState({
     name: "",
     blob: "",
-    uploadError: false,
     headerMessage: "",
     loadingFile: false,
   });
@@ -47,7 +46,6 @@ function FileProvider({ children }) {
       } else {
         setState({
           ...state,
-          uploadError: true,
           headerMessage: response.message,
           loadingFile: false,
         });
@@ -55,7 +53,6 @@ function FileProvider({ children }) {
     } catch (err) {
       setState({
         ...state,
-        uploadError: true,
         headerMessage: "Something went wrong.",
         loadingFile: false,
       });

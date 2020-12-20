@@ -7,9 +7,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 
 import styles from "../../../Modal.module.css";
 
-function HeaderPositioning() {
-  const [position, setPosition] = useState("top");
-
+function HeaderPositioning({ position, setPosition }) {
   return (
     <div className={styles.headerPositioningWrapper}>
       <FormControl component="fieldset">

@@ -9,8 +9,10 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useModal, useModalUpdate } from "../Context/ModalProvider";
 
 import HeaderModal from "./modals/HeaderModal/HeaderModal";
+import useHeaders from "./hooks/useHeaders.js";
 
 import styles from "./Modal.module.css";
+import applyHeaders from "../../api/applyHeaders";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -33,12 +35,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyModal() {
   const modal = useModal();
+  const headers = useHeaders();
   const { openModal } = useModalUpdate();
   const classes = useStyles();
 
   const handleClose = () => {
     openModal("");
   };
+
+  function onOkClick() {
+    if (modal === "headers") {
+      applyHeaders(headers);
+    }
+  }
 
   return (
     <div>
@@ -58,9 +67,9 @@ export default function MyModal() {
       >
         <Fade in={modal.length > 0} id="modalFade">
           <div className={classes.paper}>
-            {modal === "headers" && <HeaderModal />}
+            {modal === "headers" && <HeaderModal headers={headers} />}
             <div className={styles.modalButtons}>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={onOkClick}>
                 OK
               </Button>
               <Button
