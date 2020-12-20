@@ -10,6 +10,7 @@ import LoadingFile from "./LoadingFile";
 
 function Body() {
   const file = useFile();
+  console.log(file.blob);
   return (
     <div className={styles.body}>
       <MyModal />

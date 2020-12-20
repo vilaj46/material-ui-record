@@ -14,6 +14,8 @@ import useHeaders from "./hooks/useHeaders.js";
 import styles from "./Modal.module.css";
 import applyHeaders from "../../api/applyHeaders";
 
+import { useFileUpdate } from "../Context/FileProvider";
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -37,6 +39,7 @@ export default function MyModal() {
   const modal = useModal();
   const headers = useHeaders();
   const { openModal } = useModalUpdate();
+  const { updateFile } = useFileUpdate();
   const classes = useStyles();
 
   const handleClose = () => {
@@ -45,7 +48,16 @@ export default function MyModal() {
 
   function onOkClick() {
     if (modal === "headers") {
-      applyHeaders(headers);
+      const pdf = applyHeaders(headers);
+      pdf
+        .then((res) => {
+          const { blob } = res;
+          updateFile(blob);
+          openModal("");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 

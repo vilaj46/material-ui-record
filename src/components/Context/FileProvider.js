@@ -69,9 +69,15 @@ function FileProvider({ children }) {
     }
   };
 
+  function updateFile(blob) {
+    const pdf = URL.createObjectURL(blob);
+    setState({ ...state, blob: pdf });
+  }
+
   const updateContext = {
     openFile,
     closeFile,
+    updateFile,
   };
 
   return (

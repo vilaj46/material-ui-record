@@ -3,7 +3,7 @@ import axios from "axios";
 export default async function applyHeaders(headers) {
   const { pageRange, position, rangeValue, titlesList } = headers;
   const data = new FormData();
-  data.append("pageRange", pageRange);
+  data.append("pageRange", JSON.stringify(pageRange));
   data.append("position", position);
   data.append("rangeValue", rangeValue);
   data.append("titlesList", titlesList);
@@ -16,6 +16,22 @@ export default async function applyHeaders(headers) {
     responseType: "blob",
   };
 
-  const res = await axios(config);
-  console.log(res);
+  try {
+    const res = await axios(config);
+    const { data } = res;
+    console.log(data);
+    return { blob: data, status: 200, blah: "blah" };
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        message: err.response.data,
+      };
+    } else {
+      return {
+        status: 400,
+        message: "Bad request!",
+      };
+    }
+  }
 }
