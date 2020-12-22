@@ -1,12 +1,13 @@
 import axios from "axios";
 
 export default async function applyHeaders(headers) {
-  const { pageRange, position, rangeValue, titlesList } = headers;
+  const { pageRange, position, rangeValue, titlesList, headerText } = headers;
   const data = new FormData();
   data.append("pageRange", JSON.stringify(pageRange));
   data.append("position", position);
   data.append("rangeValue", rangeValue);
   data.append("titlesList", titlesList);
+  data.append("headerText", headerText);
 
   const config = {
     method: "POST",

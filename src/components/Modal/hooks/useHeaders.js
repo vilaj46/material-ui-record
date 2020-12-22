@@ -11,6 +11,7 @@ export default function useHeaders() {
     { title: "", pageNumber: "", id: Math.random(1000) },
   ]);
   const [position, setPosition] = useState("top");
+  const [startingPageNumber, setStartingPageNumber] = useState(1);
 
   /**
    * @param {String}
@@ -95,5 +96,7 @@ export default function useHeaders() {
     formatHeaderText,
     formatHeaderTextOnRangeChange,
     formatHeaderTextOnNumberChange,
+    startingPageNumber,
+    setStartingPageNumber,
   };
 }
