@@ -5,6 +5,8 @@ import styles from "../../../Modal.module.css";
 
 import TitleMenu from "./TitleMenu";
 
+import { useFile } from "../../../../Context/FileProvider";
+
 export default function TitleItem({
   title,
   pageNumber,
@@ -24,7 +26,9 @@ export default function TitleItem({
   const [titleError, setTitleError] = useState(false);
   const [pageNumberError, setPageNumberError] = useState(false);
   const DELAY = 500;
-  const documentPages = 1000; // Just for testing.
+
+  const file = useFile();
+  const documentPages = file.pageCount;
 
   const handleChange = (e) => {
     clearTimeout(timer);

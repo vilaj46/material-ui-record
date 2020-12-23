@@ -1,13 +1,21 @@
 import axios from "axios";
 
 export default async function applyHeaders(headers) {
-  const { pageRange, position, rangeValue, titlesList, headerText } = headers;
+  const {
+    pageRange,
+    position,
+    rangeValue,
+    titlesList,
+    headerText,
+    startingPageNumber,
+  } = headers;
   const data = new FormData();
   data.append("pageRange", JSON.stringify(pageRange));
   data.append("position", position);
   data.append("rangeValue", rangeValue);
   data.append("titlesList", titlesList);
   data.append("headerText", headerText);
+  data.append("startingPageNumber", startingPageNumber);
 
   const config = {
     method: "POST",
@@ -20,8 +28,7 @@ export default async function applyHeaders(headers) {
   try {
     const res = await axios(config);
     const { data } = res;
-    console.log(data);
-    return { blob: data, status: 200, blah: "blah" };
+    return { blob: data, status: 200 };
   } catch (err) {
     if (err.response) {
       return {

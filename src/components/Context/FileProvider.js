@@ -19,6 +19,7 @@ function FileProvider({ children }) {
     blob: "",
     headerMessage: "",
     loadingFile: false,
+    pageCount: 0,
   });
 
   /**
@@ -42,6 +43,7 @@ function FileProvider({ children }) {
           name: file.name,
           headerMessage: file.name,
           loadingFile: false,
+          pageCount: response.pageCount,
         });
       } else {
         setState({

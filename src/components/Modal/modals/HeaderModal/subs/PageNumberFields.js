@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { useFile } from "../../../../Context/FileProvider";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -17,8 +19,8 @@ function PageNumberFields({
   pageRange,
   formatHeaderTextOnNumberChange,
 }) {
-  // Test for the future.
-  const documentPages = 1000;
+  const file = useFile();
+  const documentPages = file.pageCount;
 
   const classes = useStyles();
   const [startError, setStartError] = useState(false);
