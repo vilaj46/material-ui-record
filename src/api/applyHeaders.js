@@ -13,7 +13,7 @@ export default async function applyHeaders(headers) {
   data.append("pageRange", JSON.stringify(pageRange));
   data.append("position", position);
   data.append("rangeValue", rangeValue);
-  data.append("titlesList", titlesList);
+  data.append("titlesList", JSON.stringify(titlesList));
   data.append("headerText", headerText);
   data.append("startingPageNumber", startingPageNumber);
 
