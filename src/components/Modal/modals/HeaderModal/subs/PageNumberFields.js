@@ -49,9 +49,13 @@ function PageNumberFields({
       sError = true;
     } else if (pageNumberEnd > documentPages) {
       eError = true;
-    } else if (pageNumberEnd < pageNumberStart) {
+    } else if (
+      pageNumberEnd < pageNumberStart &&
+      pageNumberStart <= documentPages
+    ) {
       eError = true;
-    } else if (pageNumberStart <= pageNumberEnd) {
+      sError = false;
+    } else {
       sError = false;
       eError = false;
     }

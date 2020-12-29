@@ -108,3 +108,12 @@
 .numberFormatting {
   display: flex;
 }
+
+.importTocContainer {
+  display: flex;
+}
+
+.importTocButton {
+  display: inline-block;
+  margin-left: auto;
+}

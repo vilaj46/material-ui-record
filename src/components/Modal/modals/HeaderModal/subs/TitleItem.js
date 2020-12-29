@@ -111,6 +111,7 @@ export default function TitleItem({
 
       updatedList[indexOf] = { ...updatedList[indexOf], [k]: v };
       setTitlesList(updatedList);
+      console.log(updatedList);
     }, DELAY);
     setTimer(currentTimer);
   };

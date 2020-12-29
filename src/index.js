@@ -5,12 +5,7 @@ import App from "./components/App/App";
 ReactDOM.render(<App />, document.getElementById("root"));
 
 /**
- * More functionality on the Positioning page (eventually).
- *
- * Titles needs more functionality; delete & insert.
- *
- * Do not go by indexes in the titles list.
- * Continue implementing the insert / remove.
- *
- * right clicking the page number input throws us off.
+ * Errors do not persist on modal close.
+ * After hitting ok or cancel remove all the state.
+ * If we close the modal remove the state.
  */

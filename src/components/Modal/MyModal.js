@@ -44,6 +44,10 @@ export default function MyModal() {
 
   const handleClose = () => {
     openModal("");
+    if (modal === "headers") {
+      // clear the header data.
+      headers.clear();
+    }
   };
 
   function onOkClick() {

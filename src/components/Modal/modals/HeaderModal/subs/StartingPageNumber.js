@@ -23,14 +23,12 @@ function StartingPageNumber({
     const { value } = e.target;
     const strippedValue = Number(value.trim());
 
-    if (strippedValue >= 0) {
-      setStartingPageNumber(String(strippedValue));
+    setStartingPageNumber(String(strippedValue));
 
-      if (error) {
-        setError(false);
-      }
-    } else {
+    if (strippedValue <= 0 && error === false) {
       setError(true);
+    } else if (error === true && strippedValue >= 1) {
+      setError(false);
     }
   }
 

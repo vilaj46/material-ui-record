@@ -11,7 +11,7 @@ export default function useHeaders() {
     { title: "", pageNumber: "", id: Math.random(1000) },
   ]);
   const [position, setPosition] = useState("top");
-  const [startingPageNumber, setStartingPageNumber] = useState(1);
+  const [startingPageNumber, setSPN] = useState(1);
 
   /**
    * @param {String}
@@ -38,12 +38,12 @@ export default function useHeaders() {
     const rValue = range === undefined ? rangeValue : range;
 
     // Starting page value.
-    const startValue = start >= 1 ? start : pageRange.start;
+    // const startValue = start >= 1 ? start : pageRange.start;
 
     if (rValue === "All") {
-      changeHeaderText(value, null, setHeaderText);
+      changeHeaderText(value, startingPageNumber, setHeaderText);
     } else if (rValue === "Pages From") {
-      changeHeaderText(value, startValue, setHeaderText);
+      changeHeaderText(value, startingPageNumber, setHeaderText);
     }
   };
 
@@ -80,6 +80,22 @@ export default function useHeaders() {
     }
   };
 
+  function setStartingPageNumber(pageNumber) {
+    setSPN(pageNumber);
+    // Change header text.
+    changeHeaderText(headerText, pageNumber, setHeaderText);
+  }
+
+  function clear() {
+    setTab(0);
+    setRangeValue("");
+    setPageRange({ start: "1", end: "1" });
+    setHeaderText("<<1>>");
+    setTitlesList([{ title: "", pageNumber: "", id: Math.random(1000) }]);
+    setPosition("top");
+    setSPN(1);
+  }
+
   return {
     tab,
     setTab,
@@ -98,5 +114,6 @@ export default function useHeaders() {
     formatHeaderTextOnNumberChange,
     startingPageNumber,
     setStartingPageNumber,
+    clear,
   };
 }

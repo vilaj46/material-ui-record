@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import styles from "../../../Modal.module.css";
 
 import TitleItem from "./TitleItem";
+import ImportTOC from "./ImportTOC";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,6 +102,7 @@ export default function TitlesList({ titlesList, setTitlesList }) {
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
+      <ImportTOC setTitlesList={setTitlesList} />
       {titlesList.map((t, i) => {
         return (
           <TitleItem
