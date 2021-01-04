@@ -25,9 +25,14 @@ export default function TitlesList({ titlesList, setTitlesList }) {
   const addItem = () => {
     const newList = [...titlesList];
     newList.push({
-      title: "",
-      pageNumber: "",
-      id: Math.random(1000),
+      entry: "",
+      originalText: "",
+      textError: false,
+      pageNumberError: false,
+      edits: [],
+      pageNumberInPdf: "",
+      pageNumberForMe: "",
+      idNumber: Math.random(1000000),
     });
 
     setTitlesList(newList);
@@ -49,9 +54,14 @@ export default function TitlesList({ titlesList, setTitlesList }) {
 
     if (indexOf >= 0) {
       const newItem = {
-        title: "",
-        pageNumber: "",
-        id: Math.random(1000),
+        entry: "",
+        originalText: "",
+        textError: false,
+        pageNumberError: false,
+        edits: [],
+        pageNumberInPdf: "",
+        pageNumberForMe: "",
+        idNumber: Math.random(1000000),
       };
       const newList = [...titlesList];
       newList.splice(indexOf, 0, newItem);
@@ -72,9 +82,14 @@ export default function TitlesList({ titlesList, setTitlesList }) {
 
     if (indexOf >= 0) {
       const newItem = {
-        title: "",
-        pageNumber: "",
-        id: Math.random(1000),
+        entry: "",
+        originalText: "",
+        textError: false,
+        pageNumberError: false,
+        edits: [],
+        pageNumberInPdf: "",
+        pageNumberForMe: "",
+        idNumber: Math.random(1000000),
       };
       const newList = [...titlesList];
       newList.splice(indexOf + 1, 0, newItem);
@@ -104,12 +119,14 @@ export default function TitlesList({ titlesList, setTitlesList }) {
     <form className={classes.root} noValidate autoComplete="off">
       <ImportTOC setTitlesList={setTitlesList} />
       {titlesList.map((t, i) => {
+        console.log(t);
         return (
           <TitleItem
-            title={t.title}
-            pageNumber={t.pageNumber}
+            title={t.entry}
+            pageNumber={t.pageNumberInPdf}
             key={i}
-            id={t.id}
+            id={t.idNumber}
+            t={t}
             setTitlesList={setTitlesList}
             titlesList={titlesList}
             insertItemAbove={insertItemAbove}

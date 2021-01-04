@@ -16,6 +16,7 @@ export default function TitleItem({
   insertItemAbove,
   insertItemBelow,
   removeItem,
+  t,
 }) {
   const [loaded, setLoaded] = useState(false);
   const [displayMenu, setDisplayMenu] = useState(false);
@@ -23,8 +24,8 @@ export default function TitleItem({
   const [currentTitle, setCurrentTitle] = useState(title);
   const [currentPageNumber, setCurrentPageNumber] = useState(pageNumber);
   const [timer, setTimer] = useState(null);
-  const [titleError, setTitleError] = useState(false);
-  const [pageNumberError, setPageNumberError] = useState(false);
+  const [titleError, setTitleError] = useState(t.textError);
+  const [pageNumberError, setPageNumberError] = useState(t.pageNumberError);
   const DELAY = 500;
 
   const file = useFile();
@@ -35,11 +36,11 @@ export default function TitleItem({
     const { placeholder, value } = e.target;
     if (placeholder === "Title") {
       setCurrentTitle(value);
-      callTimeout("title", value);
+      callTimeout("entry", value);
     } else {
       // placeholder is Page Number
       setCurrentPageNumber(value);
-      callTimeout("pageNumber", value);
+      callTimeout("pageNumberInPdf", value);
     }
 
     let tError = titleError; // Title error.
@@ -103,15 +104,13 @@ export default function TitleItem({
       let indexOf = null;
       for (let i = 0; i < updatedList.length; i++) {
         const currItem = updatedList[i];
-        if (currItem.id === id) {
+        if (currItem.idNumber === id) {
           indexOf = i;
           break;
         }
       }
-
       updatedList[indexOf] = { ...updatedList[indexOf], [k]: v };
       setTitlesList(updatedList);
-      console.log(updatedList);
     }, DELAY);
     setTimer(currentTimer);
   };
@@ -121,6 +120,7 @@ export default function TitleItem({
     // Could not figure out why.
     if (title !== currentTitle) {
       setCurrentTitle(title);
+      setCurrentPageNumber(pageNumber);
     }
 
     // Adds custom event listener for ctrl-right-click

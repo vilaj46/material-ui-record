@@ -22,9 +22,10 @@ export default function openTOC(setTitlesList) {
 function setupFileInput(setTitlesList) {
   const input = document.createElement("input");
 
-  input.addEventListener("change", (e) => {
+  input.addEventListener("change", async (e) => {
     const file = e.target.files[0];
-    importTocFile(file);
+    const titles = await importTocFile(file);
+    setTitlesList(titles.entries);
   });
 
   input.setAttribute("type", "file");

@@ -8,7 +8,16 @@ export default function useHeaders() {
   const [pageRange, setPageRange] = useState({ start: "1", end: "1" });
   const [headerText, setHeaderText] = useState("<<1>>");
   const [titlesList, setTitlesList] = useState([
-    { title: "", pageNumber: "", id: Math.random(1000) },
+    {
+      entry: "",
+      originalText: "",
+      textError: false,
+      pageNumberError: false,
+      edits: [],
+      pageNumberInPdf: "",
+      pageNumberForMe: "",
+      idNumber: Math.random(1000000),
+    },
   ]);
   const [position, setPosition] = useState("top");
   const [startingPageNumber, setSPN] = useState(1);
@@ -91,7 +100,18 @@ export default function useHeaders() {
     setRangeValue("");
     setPageRange({ start: "1", end: "1" });
     setHeaderText("<<1>>");
-    setTitlesList([{ title: "", pageNumber: "", id: Math.random(1000) }]);
+    setTitlesList([
+      {
+        entry: "",
+        originalText: "",
+        textError: false,
+        pageNumberError: false,
+        edits: [],
+        pageNumberInPdf: "",
+        pageNumberForMe: "",
+        idNumber: Math.random(1000000),
+      },
+    ]);
     setPosition("top");
     setSPN(1);
   }
