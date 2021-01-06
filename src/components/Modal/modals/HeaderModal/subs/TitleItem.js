@@ -55,8 +55,12 @@ export default function TitleItem({
         tError = false;
       }
 
+      // Was getting an error putting this in the 'if' statement below.
+      // Coerce the int on this line then check the length.
+      const temp = String(currentPageNumber).trim();
+
       if (
-        currentPageNumber.trim().length === 0 ||
+        temp.length === 0 ||
         Number(currentPageNumber) === 0 ||
         Number(currentPageNumber) > documentPages
       ) {

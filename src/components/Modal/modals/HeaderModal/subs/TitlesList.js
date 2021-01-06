@@ -46,7 +46,7 @@ export default function TitlesList({ titlesList, setTitlesList }) {
     let indexOf = null;
     for (let i = 0; i < titlesList.length; i++) {
       const currentItem = titlesList[i];
-      if (currentItem.id === id) {
+      if (currentItem.idNumber === id) {
         indexOf = i;
         break;
       }
@@ -74,7 +74,7 @@ export default function TitlesList({ titlesList, setTitlesList }) {
 
     for (let i = 0; i < titlesList.length; i++) {
       const currentItem = titlesList[i];
-      if (currentItem.id === id) {
+      if (currentItem.idNumber === id) {
         indexOf = i;
         break;
       }
@@ -102,7 +102,7 @@ export default function TitlesList({ titlesList, setTitlesList }) {
 
     for (let i = 0; i < titlesList.length; i++) {
       const currentItem = titlesList[i];
-      if (currentItem.id === id) {
+      if (currentItem.idNumber === id) {
         indexOf = i;
         break;
       }
@@ -119,7 +119,6 @@ export default function TitlesList({ titlesList, setTitlesList }) {
     <form className={classes.root} noValidate autoComplete="off">
       <ImportTOC setTitlesList={setTitlesList} />
       {titlesList.map((t, i) => {
-        console.log(t);
         return (
           <TitleItem
             title={t.entry}
