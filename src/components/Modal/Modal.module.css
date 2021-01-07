@@ -109,11 +109,16 @@
   display: flex;
 }
 
-.importTocContainer {
+.titlesButtons {
   display: flex;
+  justify-content: space-between;
 }
 
 .importTocButton {
   display: inline-block;
   margin-left: auto;
+}
+
+.addPageRangesButton {
+  display: inline-block;
 }

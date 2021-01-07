@@ -119,6 +119,11 @@ export default function TitleItem({
     setTimer(currentTimer);
   };
 
+  // If we add page ranges, its not being updated.
+  if (title !== currentTitle) {
+    setCurrentTitle(title);
+  }
+
   useEffect(() => {
     // Was having a bug where new items added would have a same value.
     // Could not figure out why.

@@ -17,22 +17,20 @@ export default function ImportTOC({ setTitlesList }) {
   };
 
   return (
-    <div className={styles.importTocContainer}>
-      <div
-        className={`${anchorEl === null ? "closed" : "opened"} ${
-          styles.importTocButton
-        }`}
+    <div
+      className={`${anchorEl === null ? "closed" : "opened"} ${
+        styles.importTocButton
+      }`}
+    >
+      <Button
+        aria-controls="customized-menu"
+        aria-haspopup="true"
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
       >
-        <Button
-          aria-controls="customized-menu"
-          aria-haspopup="true"
-          variant="contained"
-          color="primary"
-          onClick={handleClick}
-        >
-          Import Table of Contents
-        </Button>
-      </div>
+        Import Table of Contents
+      </Button>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import styles from "../../../Modal.module.css";
 
 import TitleItem from "./TitleItem";
 import ImportTOC from "./ImportTOC";
+import AddPageRangesButton from "./AddPageRangesButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -117,7 +118,13 @@ export default function TitlesList({ titlesList, setTitlesList }) {
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <ImportTOC setTitlesList={setTitlesList} />
+      <div className={styles.titlesButtons}>
+        <ImportTOC setTitlesList={setTitlesList} />
+        <AddPageRangesButton
+          titlesList={titlesList}
+          setTitlesList={setTitlesList}
+        />
+      </div>
       {titlesList.map((t, i) => {
         return (
           <TitleItem
