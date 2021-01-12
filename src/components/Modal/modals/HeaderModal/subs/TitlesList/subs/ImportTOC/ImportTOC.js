@@ -1,14 +1,11 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-import styles from "../../../Modal.module.css";
+import styles from "./ImportTOC.module.css";
 
-import openTOC from "../actions/openTOC.js";
+import openTOC from "../../../../actions/openTOC.js";
 
 export default function ImportTOC({ setTitlesList }) {
-  //   const file = useFile();
-  //   const updateFile = useFileUpdate();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {

@@ -1,0 +1,16 @@
+.titleItem {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.titleText {
+  width: 75% !important;
+}
+
+.titleNumber {
+  width: 30% !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0 !important;
+}

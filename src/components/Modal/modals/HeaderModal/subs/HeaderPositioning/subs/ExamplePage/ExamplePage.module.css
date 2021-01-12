@@ -1,0 +1,51 @@
+.examplePageWrapper {
+  position: relative;
+  width: 50%;
+  padding-bottom: 20%;
+  border: 2px solid black;
+}
+
+.examplePage {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.examplePageTop {
+  top: 0;
+  margin-top: 5px;
+}
+
+.examplePageBottom {
+  bottom: 0;
+  margin-bottom: 5px;
+}
+
+.examplePageNumber {
+  margin: 0;
+  padding: 0;
+}
+
+.examplePageText {
+  margin: 0;
+  padding: 0;
+}
+
+.sampleTextWrapper {
+  display: flex;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.sampleText {
+  display: flex;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  align-items: center;
+  margin: 0 auto;
+}

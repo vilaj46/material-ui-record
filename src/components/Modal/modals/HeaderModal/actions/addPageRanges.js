@@ -21,6 +21,7 @@ export default function addPageRanges(titlesList) {
           range = ` [pages ${fromPageNumber}-${toPageNumber - 1}]`;
           const newEntry = title.entry + range;
           const newTitle = { ...title, entry: newEntry };
+          // console.log(newTitle);
           return newTitle;
         } else {
           return title;

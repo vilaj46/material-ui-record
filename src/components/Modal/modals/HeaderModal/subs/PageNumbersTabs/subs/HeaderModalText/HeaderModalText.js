@@ -11,10 +11,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HeaderModalText({ headerText, formatHeaderText, rangeValue }) {
+function HeaderModalText({ headers }) {
+  const { headerText, formatHeaderText, rangeValue } = headers;
   const classes = useStyles();
   // If we have 'All' or 'Pages From' selected.
-  const isDisabled = (rangeValue !== 'All' && rangeValue !== 'Pages From') ? true : false;
+  const isDisabled =
+    rangeValue !== "All" && rangeValue !== "Pages From" ? true : false;
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <TextField

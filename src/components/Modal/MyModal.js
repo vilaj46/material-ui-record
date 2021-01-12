@@ -55,12 +55,14 @@ export default function MyModal() {
       const pdf = applyHeaders(headers);
       pdf
         .then((res) => {
+          console.log(res);
           const { blob } = res;
           updateFile(blob);
           openModal("");
         })
         .catch((err) => {
           console.log(err);
+          console.log(headers);
         });
     }
   }

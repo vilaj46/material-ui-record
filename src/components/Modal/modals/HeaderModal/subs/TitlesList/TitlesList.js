@@ -2,11 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
-import styles from "../../../Modal.module.css";
+import styles from "./TitlesList.module.css";
 
-import TitleItem from "./TitleItem";
-import ImportTOC from "./ImportTOC";
-import AddPageRangesButton from "./AddPageRangesButton";
+import TitleItem from "./subs/TitleItem/TitleItem";
+import ImportTOC from "./subs/ImportTOC/ImportTOC";
+import AddPageRangesButton from "./subs/AddPageRangesButton/AddPageRangesButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TitlesList({ titlesList, setTitlesList }) {
+export default function TitlesList({ headers }) {
+  const { titlesList, setTitlesList } = headers;
   const classes = useStyles();
 
   /**

@@ -5,9 +5,12 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
-import styles from "../../../Modal.module.css";
+import styles from "./HeaderPositioning.module.css";
 
-function HeaderPositioning({ position, setPosition }) {
+import ExamplePage from "./subs/ExamplePage/ExamplePage";
+
+function HeaderPositioning({ headers }) {
+  const { position, setPosition } = headers;
   return (
     <div className={styles.headerPositioningWrapper}>
       <FormControl component="fieldset">
@@ -26,23 +29,5 @@ function HeaderPositioning({ position, setPosition }) {
     </div>
   );
 }
-
-const ExamplePage = ({ position }) => {
-  return (
-    <div className={styles.examplePageWrapper}>
-      <div
-        className={`${styles.examplePage} ${
-          position === "top" ? styles.examplePageTop : styles.examplePageBottom
-        }`}
-      >
-        <p className={styles.examplePageNumber}>1</p>
-        <p className={styles.examplePageText}>HeaderText</p>
-      </div>
-      <div className={styles.sampleTextWrapper}>
-        <p className={styles.sampleText}>Sample Text</p>
-      </div>
-    </div>
-  );
-};
 
 export default HeaderPositioning;

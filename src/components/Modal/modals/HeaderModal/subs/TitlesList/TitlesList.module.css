@@ -1,0 +1,8 @@
+.titlesButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addTitleButton {
+  text-align: center;
+}

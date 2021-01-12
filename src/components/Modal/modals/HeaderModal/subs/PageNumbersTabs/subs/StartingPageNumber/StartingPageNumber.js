@@ -11,11 +11,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function StartingPageNumber({
-  startingPageNumber,
-  setStartingPageNumber,
-  rangeValue,
-}) {
+function StartingPageNumber({ headers }) {
+  const { startingPageNumber, setStartingPageNumber, rangeValue } = headers;
   const classes = useStyles();
   const [error, setError] = useState(false);
 

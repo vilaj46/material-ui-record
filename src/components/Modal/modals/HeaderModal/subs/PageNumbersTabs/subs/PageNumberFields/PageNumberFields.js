@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useFile } from "../../../../Context/FileProvider";
+import { useFile } from "../../../../../../../Context/FileProvider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,11 +14,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PageNumberFields({
-  rangeValue,
-  pageRange,
-  formatHeaderTextOnNumberChange,
-}) {
+function PageNumberFields({ headers }) {
+  const { rangeValue, pageRange, formatHeaderTextOnNumberChange } = headers;
   const file = useFile();
   const documentPages = file.pageCount;
 

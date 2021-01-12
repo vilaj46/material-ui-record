@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 
-import styles from "../../../Modal.module.css";
+import styles from "./TitleItem.module.css";
 
-import TitleMenu from "./TitleMenu";
+import TitleMenu from "./subs/TitleMenu";
 
-import { useFile } from "../../../../Context/FileProvider";
+import { useFile } from "../../../../../../../Context/FileProvider";
+// import useHeaders from "../../../../../../hooks/useHeaders.js";
 
 export default function TitleItem({
   title,
@@ -18,6 +19,7 @@ export default function TitleItem({
   removeItem,
   t,
 }) {
+  // const headers = useHeaders();
   const [loaded, setLoaded] = useState(false);
   const [displayMenu, setDisplayMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState([0, 0, "", 0]);
@@ -120,9 +122,9 @@ export default function TitleItem({
   };
 
   // If we add page ranges, its not being updated.
-  if (title !== currentTitle) {
-    setCurrentTitle(title);
-  }
+  // if (title !== currentTitle) {
+  //   setCurrentTitle(title);
+  // }
 
   useEffect(() => {
     // Was having a bug where new items added would have a same value.

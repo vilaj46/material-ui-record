@@ -1,0 +1,12 @@
+.range {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageRanges {
+  display: flex;
+}
+
+.numberFormatting {
+  display: flex;
+}

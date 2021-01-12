@@ -5,7 +5,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
-function PageRangeFields({ rangeValue, formatHeaderTextOnRangeChange }) {
+function PageRangeFields({ headers }) {
+  const { rangeValue, formatHeaderTextOnRangeChange } = headers;
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Page Range Options...</FormLabel>
