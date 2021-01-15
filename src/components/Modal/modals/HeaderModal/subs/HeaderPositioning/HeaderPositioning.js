@@ -22,7 +22,12 @@ function HeaderPositioning({ headers }) {
           value={position}
         >
           <FormControlLabel value="top" control={<Radio />} label="Top" />
-          <FormControlLabel value="bottom" control={<Radio />} label="Bottom" />
+          <FormControlLabel
+            value="bottom"
+            control={<Radio />}
+            label="Bottom"
+            disabled
+          />
         </RadioGroup>
       </FormControl>
       <ExamplePage position={position} />
