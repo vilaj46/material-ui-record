@@ -12,9 +12,12 @@ import HeaderModal from "./modals/HeaderModal/HeaderModal";
 import useHeaders from "./hooks/useHeaders.js";
 
 import styles from "./Modal.module.css";
-import applyHeaders from "../../api/applyHeaders";
+// import applyHeaders from "../../api/applyHeaders";
 
 import { useFileUpdate } from "../Context/FileProvider";
+
+// OK Actions
+import onOkHeaderClick from "./actions/onOkHeaderClick.js";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -52,18 +55,20 @@ export default function MyModal() {
 
   function onOkClick() {
     if (modal === "headers") {
-      const pdf = applyHeaders(headers);
-      pdf
-        .then((res) => {
-          console.log(res);
-          const { blob } = res;
-          updateFile(blob);
-          openModal("");
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log(headers);
-        });
+      const pdf = onOkHeaderClick(headers, updateFile, openModal);
+      // const pdf = applyHeaders(headers);
+      // // Check for any changes.
+      // // Handle errors.
+      // pdf
+      //   .then((res) => {
+      //     const { blob } = res;
+      //     updateFile(blob);
+      //     openModal("");
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     console.log(headers);
+      //   });
     }
   }
 

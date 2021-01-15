@@ -36,14 +36,14 @@ export default function TitleItem({
   const handleChange = (e) => {
     clearTimeout(timer);
     const { placeholder, value } = e.target;
-    if (placeholder === "Title") {
-      setCurrentTitle(value);
-      callTimeout("entry", value);
-    } else {
-      // placeholder is Page Number
-      setCurrentPageNumber(value);
-      callTimeout("pageNumberInPdf", value);
-    }
+    // if (placeholder === "Title") {
+    //   setCurrentTitle(value);
+    //   callTimeout("entry", value);
+    // } else {
+    //   // placeholder is Page Number
+    //   setCurrentPageNumber(value);
+    //   callTimeout("pageNumberInPdf", value);
+    // }
 
     let tError = titleError; // Title error.
     let pnError = pageNumberError; // Page number error.
@@ -95,6 +95,15 @@ export default function TitleItem({
 
     setTitleError(tError);
     setPageNumberError(pnError);
+
+    if (placeholder === "Title") {
+      setCurrentTitle(value);
+      callTimeout("entry", value, tError, pnError);
+    } else {
+      // placeholder is Page Number
+      setCurrentPageNumber(value);
+      callTimeout("pageNumberInPdf", value, tError, pnError);
+    }
   };
 
   /**
@@ -104,7 +113,7 @@ export default function TitleItem({
    * Sets a timer when we start typing in one of the inputs.
    * If we stop typing, it will save and update after the delay.
    */
-  const callTimeout = (k, v) => {
+  const callTimeout = (k, v, tError, pnError) => {
     const currentTimer = setTimeout(() => {
       const updatedList = [...titlesList];
       let indexOf = null;
@@ -115,7 +124,13 @@ export default function TitleItem({
           break;
         }
       }
-      updatedList[indexOf] = { ...updatedList[indexOf], [k]: v };
+
+      updatedList[indexOf] = {
+        ...updatedList[indexOf],
+        [k]: v,
+        textError: tError,
+        pageNumberError: pnError,
+      };
       setTitlesList(updatedList);
     }, DELAY);
     setTimer(currentTimer);

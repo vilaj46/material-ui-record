@@ -2,7 +2,29 @@ import { useState } from "react";
 
 import changeHeaderText from "../modals/HeaderModal/actions/changeHeaderText";
 
+const defaultValues = {
+  tab: 0,
+  rangeValue: "",
+  pageRange: { start: "1", end: "1" },
+  headerText: "<<1>>",
+  titlesList: [
+    {
+      entry: "",
+      originalText: "",
+      textError: true,
+      pageNumberError: true,
+      edits: [],
+      pageNumberInPdf: "",
+      pageNumberForMe: "",
+      idNumber: Math.random(1000000),
+    },
+  ],
+  position: "top",
+  startingPageNumber: 1,
+};
+
 export default function useHeaders() {
+  // Change these values to defaultValues.
   const [tab, setTab] = useState(0);
   const [rangeValue, setRangeValue] = useState("");
   const [pageRange, setPageRange] = useState({ start: "1", end: "1" });
@@ -11,8 +33,8 @@ export default function useHeaders() {
     {
       entry: "",
       originalText: "",
-      textError: false,
-      pageNumberError: false,
+      textError: true,
+      pageNumberError: true,
       edits: [],
       pageNumberInPdf: "",
       pageNumberForMe: "",
@@ -96,24 +118,79 @@ export default function useHeaders() {
   }
 
   function clear() {
-    setTab(0);
-    setRangeValue("");
-    setPageRange({ start: "1", end: "1" });
-    setHeaderText("<<1>>");
-    setTitlesList([
-      {
-        entry: "",
-        originalText: "",
-        textError: false,
-        pageNumberError: false,
-        edits: [],
-        pageNumberInPdf: "",
-        pageNumberForMe: "",
-        idNumber: Math.random(1000000),
-      },
-    ]);
-    setPosition("top");
-    setSPN(1);
+    setTab(defaultValues.tab);
+    setRangeValue(defaultValues.rangeValue);
+    setPageRange(defaultValues.pageRange);
+    setHeaderText(defaultValues.headerText);
+    setTitlesList(defaultValues.titlesList);
+    setPosition(defaultValues.position);
+    setSPN(defaultValues.startingPageNumber);
+  }
+
+  function wereChangesMade() {
+    // Compare the values of our current headers to default values.
+
+    // Check rangeValue
+    if (rangeValue !== defaultValues.rangeValue && rangeValue !== "None") {
+      return true;
+    }
+    // Check pageRange
+    const defaultStart = defaultValues.pageRange.start;
+    const defaultEnd = defaultValues.pageRange.end;
+    if (
+      (pageRange.start !== defaultStart || pageRange.end !== defaultEnd) &&
+      rangeValue !== "None"
+    ) {
+      return true;
+    }
+    // Check headerText
+    if (headerText !== defaultValues.headerText && rangeValue !== "None") {
+      return true;
+    }
+    // Check titlesList
+    const tiltesAreDifferent = compareTitlesList(
+      titlesList,
+      defaultValues.titlesList
+    );
+
+    if (tiltesAreDifferent) {
+      return true;
+    }
+
+    // Check position
+    if (position !== defaultValues.position) {
+      return true;
+    }
+    // Check startingPageNumber
+    if (startingPageNumber !== defaultValues.startingPageNumber) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function compareTitlesList(currTitlesList, defaultTitlesList) {
+    if (currTitlesList.length === 0) {
+      return false;
+    }
+
+    if (currTitlesList.length >= 1) {
+      for (let i = 0; i < currTitlesList.length; i++) {
+        const currTitle = currTitlesList[i];
+        const currEntry = currTitle.entry.trim();
+        const currPageNumber = currTitle.pageNumberInPdf.trim();
+        const currEntryError = currTitle.textError;
+        const currPageNumberError = currTitle.pageNumberError;
+        const isError = currEntryError || currPageNumberError;
+
+        // If the text is different and there are no errors.
+        if ((currEntry !== "" || currPageNumber !== "") && isError === false) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   return {
@@ -135,5 +212,6 @@ export default function useHeaders() {
     startingPageNumber,
     setStartingPageNumber,
     clear,
+    wereChangesMade,
   };
 }
