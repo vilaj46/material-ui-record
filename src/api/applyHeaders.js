@@ -28,7 +28,7 @@ export default async function applyHeaders(headers) {
   try {
     const res = await axios(config);
     const { data } = res;
-    console.log(res);
+
     return { blob: data, status: 200 };
   } catch (err) {
     if (err.response) {

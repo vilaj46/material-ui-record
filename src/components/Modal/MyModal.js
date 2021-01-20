@@ -6,18 +6,21 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 
-import { useModal, useModalUpdate } from "../Context/ModalProvider";
-
+// Subs - some subs below.
 import HeaderModal from "./modals/HeaderModal/HeaderModal";
+
+// Custom Hooks
 import useHeaders from "./hooks/useHeaders.js";
 
-import styles from "./Modal.module.css";
-// import applyHeaders from "../../api/applyHeaders";
-
+// Providers
 import { useFileUpdate } from "../Context/FileProvider";
+import { useModal, useModalUpdate } from "../Context/ModalProvider";
 
 // OK Actions
 import onOkHeaderClick from "./actions/onOkHeaderClick.js";
+
+// CSS
+import styles from "./Modal.module.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,6 +41,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function OkButton({ onClick }) {
+  return (
+    <Button variant="contained" color="primary" onClick={onClick}>
+      OK
+    </Button>
+  );
+}
+
+function CancelButton({ onClick }) {
+  return (
+    <Button variant="contained" color="secondary" onClick={onClick}>
+      Cancel
+    </Button>
+  );
+}
+
 export default function MyModal() {
   const modal = useModal();
   const headers = useHeaders();
@@ -45,30 +64,25 @@ export default function MyModal() {
   const { updateFile } = useFileUpdate();
   const classes = useStyles();
 
-  const handleClose = () => {
+  /**
+   * Default action when the modal is faded off of or when we
+   * click 'ok' or 'close'. Clear the header data.
+   */
+  function handleClose() {
     openModal("");
     if (modal === "headers") {
-      // clear the header data.
       headers.clear();
     }
-  };
+  }
 
+  /**
+   * Once we click ok perform the necessary action.
+   */
   function onOkClick() {
     if (modal === "headers") {
-      const pdf = onOkHeaderClick(headers, updateFile, openModal);
-      // const pdf = applyHeaders(headers);
-      // // Check for any changes.
-      // // Handle errors.
-      // pdf
-      //   .then((res) => {
-      //     const { blob } = res;
-      //     updateFile(blob);
-      //     openModal("");
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     console.log(headers);
-      //   });
+      // Does not need to return pdf. We had const pdf = onOkHeaderClick(...)
+      onOkHeaderClick(headers, updateFile, openModal);
+      handleClose();
     }
   }
 
@@ -92,16 +106,8 @@ export default function MyModal() {
           <div className={classes.paper}>
             {modal === "headers" && <HeaderModal headers={headers} />}
             <div className={styles.modalButtons}>
-              <Button variant="contained" color="primary" onClick={onOkClick}>
-                OK
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleClose}
-              >
-                Cancel
-              </Button>
+              <OkButton onClick={onOkClick} />
+              <CancelButton onClick={handleClose} />
             </div>
             <CloseIcon
               onClick={handleClose}

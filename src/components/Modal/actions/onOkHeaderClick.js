@@ -12,7 +12,7 @@ import applyHeaders from "../../../api/applyHeaders";
  *
  * If there are not any changes we need to return ___________.
  */
-export default function onOkHeaderClick(headers, updateFile, openModal) {
+export default function onOkHeaderClick(headers, updateFile) {
   const changesWereMade = headers.wereChangesMade();
   if (changesWereMade) {
     const pdf = applyHeaders(headers);
@@ -21,7 +21,6 @@ export default function onOkHeaderClick(headers, updateFile, openModal) {
       .then((res) => {
         const { blob } = res;
         updateFile(blob);
-        openModal("");
       })
       .catch((err) => {
         console.log(err);
