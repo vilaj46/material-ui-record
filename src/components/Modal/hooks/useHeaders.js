@@ -2,54 +2,20 @@ import { useState } from "react";
 
 import changeHeaderText from "../modals/HeaderModal/actions/changeHeaderText";
 
-const defaultValues = {
-  tab: 0,
-  rangeValue: "",
-  pageRange: { start: "1", end: "1" },
-  headerText: "<<1>>",
-  titlesList: [
-    {
-      entry: "",
-      originalText: "",
-      textError: true,
-      pageNumberError: true,
-      edits: [],
-      pageNumberInPdf: "",
-      pageNumberForMe: "",
-      idNumber: Math.random(1000000),
-    },
-  ],
-  position: "top",
-  startingPageNumber: 1,
-};
-
 export default function useHeaders() {
-  // Change these values to defaultValues.
-  const [tab, setTab] = useState(0);
-  const [rangeValue, setRangeValue] = useState("");
-  const [pageRange, setPageRange] = useState({ start: "1", end: "1" });
-  const [headerText, setHeaderText] = useState("<<1>>");
-  const [titlesList, setTitlesList] = useState([
-    {
-      entry: "",
-      originalText: "",
-      textError: true,
-      pageNumberError: true,
-      edits: [],
-      pageNumberInPdf: "",
-      pageNumberForMe: "",
-      idNumber: Math.random(1000000),
-    },
-  ]);
-  const [position, setPosition] = useState("top");
-  const [startingPageNumber, setSPN] = useState(1);
+  const [tab, setTab] = useState(defaultValues.tab);
+  const [rangeValue, setRangeValue] = useState(defaultValues.rangeValue);
+  const [pageRange, setPageRange] = useState(defaultValues.pageRange);
+  const [headerText, setHT] = useState(defaultValues.headerText);
+  const [titlesList, setTitlesList] = useState(defaultValues.titlesList);
+  const [position, setPosition] = useState(defaultValues.position);
+  const [startingPageNumber, setSPN] = useState(
+    defaultValues.startingPageNumber
+  );
 
   /**
-   * @param {String}
-   * @param {String}
-   * @param {Number}
-   *
-   * A helper function for the below two functions.
+   * @param {String} - value: New header value set in the HeaderModalText component.
+   * @param {String} - range
    *
    * First, we set the rValue (rangeValue). If our range parameter
    * is undefined that means it is either 'Pages From or None'.
@@ -64,19 +30,20 @@ export default function useHeaders() {
    * our All value should appear as <<1>> and the Pages From value should
    * be the <<Starting Page>>.
    */
-  const formatHeaderText = (value, range, start) => {
-    // Range value (All, Pages From, None).
-    const rValue = range === undefined ? rangeValue : range;
 
-    // Starting page value.
-    // const startValue = start >= 1 ? start : pageRange.start;
+  function setHeaderText(value, range) {
+    changeHeaderText(value, startingPageNumber, setHT);
 
-    if (rValue === "All") {
-      changeHeaderText(value, startingPageNumber, setHeaderText);
-    } else if (rValue === "Pages From") {
-      changeHeaderText(value, startingPageNumber, setHeaderText);
-    }
-  };
+    // Not sure if we need this...everything below.
+    // // Range value (All, Pages From, None).
+    // const rValue = range === undefined ? rangeValue : range;
+
+    // if (rValue === "All") {
+    //   changeHeaderText(value, startingPageNumber, setHT);
+    // } else if (rValue === "Pages From") {
+    //   changeHeaderText(value, startingPageNumber, setHT);
+    // }
+  }
 
   /**
    * @param {String} value - All, Pages From, None.
@@ -84,12 +51,12 @@ export default function useHeaders() {
    * Since we are changing the range value, set the new state.
    * Then we format the header text. We use the headerText from
    * the state because we are not directly changing that. We will change it in the
-   * formatHeaderText function. We do give formatHeaderText our new page range value
+   * setHeaderText function. We do give setHeaderText our new page range value
    * because we want it to have the most updated instead of relying on old state.
    */
   const formatHeaderTextOnRangeChange = (value) => {
     setRangeValue(value);
-    formatHeaderText(headerText, value);
+    setHeaderText(headerText, value);
   };
 
   /**
@@ -100,28 +67,28 @@ export default function useHeaders() {
    * If we have an error we do not set the new headerText.
    * If our range is 'Pages From' and not 'All' and 'None',
    * then we can format our new headerText. We use the headerText
-   * because it will be updated in the formatHeaderText function.
+   * because it will be updated in the setHeaderText function.
    * Since we are giving the function the page range starting value
    * it will know what to use.
    */
   const formatHeaderTextOnNumberChange = (pr, error) => {
     setPageRange(pr);
     if (rangeValue === "Pages From" && error === false) {
-      formatHeaderText(headerText, undefined, pr.start);
+      setHeaderText(headerText, undefined, pr.start);
     }
   };
 
   function setStartingPageNumber(pageNumber) {
     setSPN(pageNumber);
     // Change header text.
-    changeHeaderText(headerText, pageNumber, setHeaderText);
+    changeHeaderText(headerText, pageNumber, setHT);
   }
 
   function clear() {
     setTab(defaultValues.tab);
     setRangeValue(defaultValues.rangeValue);
     setPageRange(defaultValues.pageRange);
-    setHeaderText(defaultValues.headerText);
+    setHT(defaultValues.headerText);
     setTitlesList(defaultValues.titlesList);
     setPosition(defaultValues.position);
     setSPN(defaultValues.startingPageNumber);
@@ -194,24 +161,50 @@ export default function useHeaders() {
   }
 
   return {
+    // Values
     tab,
-    setTab,
-    rangeValue,
-    setRangeValue,
-    pageRange,
-    setPageRange,
-    headerText,
-    setHeaderText,
-    titlesList,
-    setTitlesList,
     position,
-    setPosition,
-    formatHeaderText,
-    formatHeaderTextOnRangeChange,
-    formatHeaderTextOnNumberChange,
+    pageRange,
+    rangeValue,
+    headerText,
+    titlesList,
     startingPageNumber,
+
+    // Setters
+    setTab,
+    setPosition,
+    setPageRange,
+    setRangeValue,
+    setHeaderText,
+    setTitlesList,
     setStartingPageNumber,
+
+    // Helper & Custom functions.
     clear,
     wereChangesMade,
+    setHeaderText,
+    formatHeaderTextOnRangeChange,
+    formatHeaderTextOnNumberChange,
   };
 }
+
+const defaultValues = {
+  tab: 0,
+  rangeValue: "",
+  pageRange: { start: "1", end: "1" },
+  headerText: "<<1>>",
+  titlesList: [
+    {
+      entry: "",
+      originalText: "",
+      textError: true,
+      pageNumberError: true,
+      edits: [],
+      pageNumberInPdf: "",
+      pageNumberForMe: "",
+      idNumber: Math.random(1000000),
+    },
+  ],
+  position: "top",
+  startingPageNumber: 1,
+};

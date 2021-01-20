@@ -1,11 +1,13 @@
 import React from "react";
-import styles from "./PageNumberTabs.module.css";
 
 // Subs
 import PageRangeFields from "./subs/PageRangeFields/PageRangeFields";
-import PageNumberFields from "./subs/PageNumberFields/PageNumberFields";
 import HeaderModalText from "./subs/HeaderModalText/HeaderModalText";
+import PageNumberFields from "./subs/PageNumberFields/PageNumberFields";
 import StartingPageNumber from "./subs/StartingPageNumber/StartingPageNumber";
+
+// CSS
+import styles from "./PageNumberTabs.module.css";
 
 function PageNumbersTab({ headers }) {
   return (
