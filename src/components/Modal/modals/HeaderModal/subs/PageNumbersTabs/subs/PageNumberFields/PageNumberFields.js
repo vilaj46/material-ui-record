@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PageNumberFields({ headers }) {
-  const { rangeValue, pageRange, formatHeaderTextOnNumberChange } = headers;
+  const { rangeValue, pageRange, setPageRange } = headers;
   const file = useFile();
   const documentPages = file.pageCount;
 
@@ -68,9 +68,9 @@ function PageNumberFields({ headers }) {
     setEndError(eError);
 
     if (k === "start") {
-      formatHeaderTextOnNumberChange({ ...pageRange, [k]: value }, sError);
+      setPageRange({ ...pageRange, [k]: value }, sError);
     } else {
-      formatHeaderTextOnNumberChange({ ...pageRange, [k]: value }, eError);
+      setPageRange({ ...pageRange, [k]: value }, eError);
     }
   };
 

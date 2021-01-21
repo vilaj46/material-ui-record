@@ -8,15 +8,14 @@
  * Check if the << and >> are there. If they are not, reset with the appropriate number.
  *
  */
-export default function changeHeaderText(value, start, callback) {
+export default function changeHeaderText(value, start) {
   let openBracketsIndex = value.indexOf("<<");
   let closeBracketsIndex = value.indexOf(">>");
   let number = start !== null ? start : 1;
 
   // If we clear the entire line, just reset it.
   if (openBracketsIndex === -1 && closeBracketsIndex === -1) {
-    callback(`<<${number}>>`);
-    return;
+    return `<<${number}>>`;
   }
 
   // Could not find the <<
@@ -27,8 +26,6 @@ export default function changeHeaderText(value, start, callback) {
       openBracketsIndex,
       closeBracketsIndex
     );
-
-    callback(newValue);
   } else if (closeBracketsIndex === -1) {
     // Could not find the >>
     const newValue = findAndFixCloseBrackets(
@@ -38,7 +35,7 @@ export default function changeHeaderText(value, start, callback) {
       closeBracketsIndex
     );
 
-    callback(newValue);
+    return newValue;
   } else {
     // Everything was good!
     const openBrackets = value.slice(openBracketsIndex, openBracketsIndex + 2);
@@ -46,7 +43,7 @@ export default function changeHeaderText(value, start, callback) {
     const newValue =
       value.slice(0, openBracketsIndex) + openBrackets + number + closeBrackets;
 
-    callback(newValue);
+    return newValue;
   }
 }
 
