@@ -57,7 +57,7 @@ function CancelButton({ onClick }) {
   );
 }
 
-export default function MyModal() {
+function MyModal() {
   const modal = useModal();
   const headers = useHeaders();
   const { openModal } = useModalUpdate();
@@ -76,7 +76,7 @@ export default function MyModal() {
   }
 
   /**
-   * Once we click ok perform the necessary action.
+   * Once we click ok, perform the necessary action.
    */
   function onOkClick() {
     if (modal === "headers") {
@@ -120,3 +120,5 @@ export default function MyModal() {
     </div>
   );
 }
+
+export default MyModal;

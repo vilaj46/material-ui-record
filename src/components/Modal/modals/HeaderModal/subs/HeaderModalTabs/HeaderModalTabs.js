@@ -19,9 +19,9 @@ export default function HeaderModalTabs({ headers }) {
   const classes = useStyles();
   const { tab, setTab } = headers;
 
-  const handleChange = (event, newValue) => {
-    setTab(newValue);
-  };
+  function handleChange(e, tab) {
+    setTab(tab);
+  }
 
   return (
     <div className={classes.root}>
