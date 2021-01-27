@@ -5,8 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // Provider Hook
 import { useFile } from "../../../../../../../Context/FileProvider";
 
-// // Helper Functions
-// import isValidNumber from "./helpers/isValidNumber.js";
+// Helper Functions
 import getErrors from "./helpers/getErrors.js";
 
 const useStyles = makeStyles((theme) => ({
