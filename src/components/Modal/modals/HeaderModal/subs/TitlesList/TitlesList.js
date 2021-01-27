@@ -8,6 +8,8 @@ import TitleItem from "./subs/TitleItem/TitleItem";
 import ImportTOC from "./subs/ImportTOC/ImportTOC";
 import AddPageRangesButton from "./subs/AddPageRangesButton/AddPageRangesButton";
 
+import { defaultValues } from "../../../../hooks/useHeaders.js";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -17,34 +19,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TitlesList({ headers }) {
+function TitlesList({ headers }) {
   const { titlesList, setTitlesList } = headers;
   const classes = useStyles();
 
   /**
-   * Needs fixing on the animation / timeout.
+   * Adds blank item to the new list and sets the list.
+   *
+   * Since we are waiting for the hook to update, we set a 50ms
+   * delay to scroll to the bottom where we added the new item.
+   *
+   * __NEEDS BETTER ANIMATION__
    */
-  const addItem = () => {
+  function addItem() {
     const newList = [...titlesList];
-    newList.push({
-      entry: "",
-      originalText: "",
-      textError: false,
-      pageNumberError: false,
-      edits: [],
-      pageNumberInPdf: "",
-      pageNumberForMe: "",
-      idNumber: Math.random(1000000),
-    });
+    const defaultItem = { ...defaultValues.titlesList[0] };
+    defaultItem.idNumber = Math.random(1000000);
+
+    newList.push(defaultItem);
 
     setTitlesList(newList);
+
     setTimeout(() => {
       const modalFade = document.getElementById("modalFade");
+      modalFade.scrollBehavior = "smooth";
       modalFade.scrollTop = modalFade.scrollHeight;
-    }, 500);
-  };
+    }, 50);
+  }
 
-  const insertItemAbove = (id) => {
+  /**
+   * @param {Number} id - Identification of item in the titles list.
+   *
+   * Find the index of the item we are inserting.
+   *
+   * If we find the item, insert the new item above it.
+   */
+  function insertItemAbove(id) {
     let indexOf = null;
     for (let i = 0; i < titlesList.length; i++) {
       const currentItem = titlesList[i];
@@ -55,23 +65,22 @@ export default function TitlesList({ headers }) {
     }
 
     if (indexOf >= 0) {
-      const newItem = {
-        entry: "",
-        originalText: "",
-        textError: false,
-        pageNumberError: false,
-        edits: [],
-        pageNumberInPdf: "",
-        pageNumberForMe: "",
-        idNumber: Math.random(1000000),
-      };
+      const defaultItem = { ...defaultValues.titlesList[0] };
+      defaultItem.idNumber = Math.random(1000000);
       const newList = [...titlesList];
-      newList.splice(indexOf, 0, newItem);
+      newList.splice(indexOf, 0, defaultItem);
       setTitlesList(newList);
     }
-  };
+  }
 
-  const insertItemBelow = (id) => {
+  /**
+   * @param {Number} id - Identification of item in the titles list.
+   *
+   * Find the index of the item we are inserting.
+   *
+   * If we find the item, insert the new item below it.
+   */
+  function insertItemBelow(id) {
     let indexOf = null;
 
     for (let i = 0; i < titlesList.length; i++) {
@@ -83,23 +92,20 @@ export default function TitlesList({ headers }) {
     }
 
     if (indexOf >= 0) {
-      const newItem = {
-        entry: "",
-        originalText: "",
-        textError: false,
-        pageNumberError: false,
-        edits: [],
-        pageNumberInPdf: "",
-        pageNumberForMe: "",
-        idNumber: Math.random(1000000),
-      };
+      const defaultItem = { ...defaultValues.titlesList[0] };
+      defaultItem.idNumber = Math.random(1000000);
       const newList = [...titlesList];
-      newList.splice(indexOf + 1, 0, newItem);
+      newList.splice(indexOf + 1, 0, defaultItem);
       setTitlesList(newList);
     }
-  };
+  }
 
-  const removeItem = (id) => {
+  /**
+   * @param {Number} id - Identification of selected item.
+   *
+   * Find the item in the titles list and remove it.
+   */
+  function removeItem(id) {
     let indexOf = null;
 
     for (let i = 0; i < titlesList.length; i++) {
@@ -115,7 +121,7 @@ export default function TitlesList({ headers }) {
       newList.splice(indexOf, 1);
       setTitlesList(newList);
     }
-  };
+  }
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -155,3 +161,5 @@ export default function TitlesList({ headers }) {
     </form>
   );
 }
+
+export default TitlesList;

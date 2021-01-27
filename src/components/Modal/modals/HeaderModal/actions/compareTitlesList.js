@@ -17,7 +17,7 @@ export default function compareTitlesList(currTitlesList) {
     for (let i = 0; i < currTitlesList.length; i++) {
       const currTitle = currTitlesList[i];
       const currEntry = currTitle.entry.trim();
-      const currPageNumber = currTitle.pageNumberInPdf.trim();
+      const currPageNumber = String(currTitle.pageNumberInPdf).trim();
       const currEntryError = currTitle.textError;
       const currPageNumberError = currTitle.pageNumberError;
       const isError = currEntryError || currPageNumberError;

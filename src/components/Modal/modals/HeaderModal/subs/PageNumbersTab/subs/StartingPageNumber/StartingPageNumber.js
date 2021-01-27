@@ -16,6 +16,12 @@ function StartingPageNumber({ headers }) {
   const classes = useStyles();
   const [error, setError] = useState(false);
 
+  /**
+   * @param {Object} e - Event object.
+   *
+   * Trim the input to make sure it isn't blank. If it
+   * isn't blank, check whether it's less than one and set errors.
+   */
   function onChange(e) {
     const { value } = e.target;
     const strippedValue = Number(value.trim());
@@ -28,6 +34,9 @@ function StartingPageNumber({ headers }) {
       setError(false);
     }
   }
+
+  // Disable if our page range options unselected or None.
+  const isDisabled = rangeValue === "None" || rangeValue === "";
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -42,7 +51,7 @@ function StartingPageNumber({ headers }) {
           value={startingPageNumber}
           onChange={(e) => onChange(e)}
           error={error}
-          disabled={rangeValue === "None" || rangeValue === ""}
+          disabled={isDisabled}
         />
       </div>
     </form>

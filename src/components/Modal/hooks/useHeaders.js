@@ -120,7 +120,7 @@ export default function useHeaders() {
   };
 }
 
-const defaultValues = {
+export const defaultValues = {
   tab: 0,
   rangeValue: "",
   pageRange: { start: "1", end: "1" },

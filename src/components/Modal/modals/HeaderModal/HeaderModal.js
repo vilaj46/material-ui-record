@@ -4,6 +4,7 @@ import React from "react";
 import PageNumbersTab from "./subs/PageNumbersTab/PageNumbersTab";
 import HeaderModalTabs from "./subs/HeaderModalTabs/HeaderModalTabs";
 import TitlesList from "./subs/TitlesList/TitlesList";
+// import TitlesList2 from "./subs/TitlesList2/TitlesList2";
 import HeaderPositioning from "./subs/HeaderPositioning/HeaderPositioning";
 
 function HeaderModal({ headers }) {

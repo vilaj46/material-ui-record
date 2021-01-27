@@ -9,7 +9,7 @@ function PageRangeFields({ headers }) {
   const { rangeValue, setRangeValue } = headers;
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">Page Range Options...</FormLabel>
+      <FormLabel component="legend">Page Range Options</FormLabel>
       <RadioGroup
         aria-label="pagerange"
         name="pagerange"

@@ -25,6 +25,7 @@ function setupFileInput(setTitlesList) {
   input.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     const titles = await importTocFile(file);
+    setTitlesList([]);
     setTitlesList(titles.entries);
   });
 
