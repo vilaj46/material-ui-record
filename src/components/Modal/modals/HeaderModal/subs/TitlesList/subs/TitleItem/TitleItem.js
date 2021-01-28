@@ -6,7 +6,6 @@ import styles from "./TitleItem.module.css";
 import TitleMenu from "./subs/TitleMenu";
 
 import { useFile } from "../../../../../../../Context/FileProvider";
-// import useHeaders from "../../../../../../hooks/useHeaders.js";
 
 export default function TitleItem({
   title,
@@ -19,7 +18,6 @@ export default function TitleItem({
   removeItem,
   t,
 }) {
-  // const headers = useHeaders();
   const [loaded, setLoaded] = useState(false);
   const [displayMenu, setDisplayMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState([0, 0, "", 0]);
@@ -36,14 +34,6 @@ export default function TitleItem({
   const handleChange = (e) => {
     clearTimeout(timer);
     const { placeholder, value } = e.target;
-    // if (placeholder === "Title") {
-    //   setCurrentTitle(value);
-    //   callTimeout("entry", value);
-    // } else {
-    //   // placeholder is Page Number
-    //   setCurrentPageNumber(value);
-    //   callTimeout("pageNumberInPdf", value);
-    // }
 
     let tError = titleError; // Title error.
     let pnError = pageNumberError; // Page number error.
@@ -135,11 +125,6 @@ export default function TitleItem({
     }, DELAY);
     setTimer(currentTimer);
   };
-
-  // If we add page ranges, its not being updated.
-  // if (title !== currentTitle) {
-  //   setCurrentTitle(title);
-  // }
 
   useEffect(() => {
     // Was having a bug where new items added would have a same value.

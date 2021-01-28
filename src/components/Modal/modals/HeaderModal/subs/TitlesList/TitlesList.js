@@ -20,107 +20,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TitlesList({ headers }) {
-  const { titlesList, setTitlesList } = headers;
+  const { titlesList, setTitlesList, addItem, insertItemAbove, insertItemBelow, removeItem } = headers;
   const classes = useStyles();
 
   /**
-   * Adds blank item to the new list and sets the list.
-   *
-   * Since we are waiting for the hook to update, we set a 50ms
-   * delay to scroll to the bottom where we added the new item.
-   *
-   * __NEEDS BETTER ANIMATION__
+   * Adds the item then scrolls down on the list.
    */
-  function addItem() {
-    const newList = [...titlesList];
-    const defaultItem = { ...defaultValues.titlesList[0] };
-    defaultItem.idNumber = Math.random(1000000);
-
-    newList.push(defaultItem);
-
-    setTitlesList(newList);
-
+  function customAddItem() {
+    addItem();
     setTimeout(() => {
       const modalFade = document.getElementById("modalFade");
       modalFade.scrollBehavior = "smooth";
       modalFade.scrollTop = modalFade.scrollHeight;
     }, 50);
-  }
-
-  /**
-   * @param {Number} id - Identification of item in the titles list.
-   *
-   * Find the index of the item we are inserting.
-   *
-   * If we find the item, insert the new item above it.
-   */
-  function insertItemAbove(id) {
-    let indexOf = null;
-    for (let i = 0; i < titlesList.length; i++) {
-      const currentItem = titlesList[i];
-      if (currentItem.idNumber === id) {
-        indexOf = i;
-        break;
-      }
-    }
-
-    if (indexOf >= 0) {
-      const defaultItem = { ...defaultValues.titlesList[0] };
-      defaultItem.idNumber = Math.random(1000000);
-      const newList = [...titlesList];
-      newList.splice(indexOf, 0, defaultItem);
-      setTitlesList(newList);
-    }
-  }
-
-  /**
-   * @param {Number} id - Identification of item in the titles list.
-   *
-   * Find the index of the item we are inserting.
-   *
-   * If we find the item, insert the new item below it.
-   */
-  function insertItemBelow(id) {
-    let indexOf = null;
-
-    for (let i = 0; i < titlesList.length; i++) {
-      const currentItem = titlesList[i];
-      if (currentItem.idNumber === id) {
-        indexOf = i;
-        break;
-      }
-    }
-
-    if (indexOf >= 0) {
-      const defaultItem = { ...defaultValues.titlesList[0] };
-      defaultItem.idNumber = Math.random(1000000);
-      const newList = [...titlesList];
-      newList.splice(indexOf + 1, 0, defaultItem);
-      setTitlesList(newList);
-    }
-  }
-
-  /**
-   * @param {Number} id - Identification of selected item.
-   *
-   * Find the item in the titles list and remove it.
-   */
-  function removeItem(id) {
-    let indexOf = null;
-
-    for (let i = 0; i < titlesList.length; i++) {
-      const currentItem = titlesList[i];
-      if (currentItem.idNumber === id) {
-        indexOf = i;
-        break;
-      }
-    }
-
-    if (indexOf >= 0) {
-      const newList = [...titlesList];
-      newList.splice(indexOf, 1);
-      setTitlesList(newList);
-    }
   }
 
   return (
@@ -153,7 +65,7 @@ function TitlesList({ headers }) {
           type="button"
           variant="outlined"
           color="primary"
-          onClick={addItem}
+          onClick={customAddItem}
         >
           Add Title
         </Button>

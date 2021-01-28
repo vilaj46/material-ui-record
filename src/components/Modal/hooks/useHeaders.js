@@ -95,6 +95,94 @@ export default function useHeaders() {
     return false;
   }
 
+  // Title List Functions
+
+  function addItem() {
+    const newList = [...titlesList];
+    const defaultItem = { ...defaultValues.titlesList[0] };
+    defaultItem.idNumber = Math.random(1000000);
+
+    newList.push(defaultItem);
+
+    setTitlesList(newList);
+  }
+
+  /**
+   * @param {Number} id - Identification of item in the titles list.
+   *
+   * Find the index of the item we are inserting.
+   *
+   * If we find the item, insert the new item above it.
+   */
+  function insertItemAbove(id) {
+    let indexOf = null;
+    for (let i = 0; i < titlesList.length; i++) {
+      const currentItem = titlesList[i];
+      if (currentItem.idNumber === id) {
+        indexOf = i;
+        break;
+      }
+    }
+
+    if (indexOf >= 0) {
+      const defaultItem = { ...defaultValues.titlesList[0] };
+      defaultItem.idNumber = Math.random(1000000);
+      const newList = [...titlesList];
+      newList.splice(indexOf, 0, defaultItem);
+      setTitlesList(newList);
+    }
+  }
+
+  /**
+   * @param {Number} id - Identification of item in the titles list.
+   *
+   * Find the index of the item we are inserting.
+   *
+   * If we find the item, insert the new item below it.
+   */
+  function insertItemBelow(id) {
+    let indexOf = null;
+
+    for (let i = 0; i < titlesList.length; i++) {
+      const currentItem = titlesList[i];
+      if (currentItem.idNumber === id) {
+        indexOf = i;
+        break;
+      }
+    }
+
+    if (indexOf >= 0) {
+      const defaultItem = { ...defaultValues.titlesList[0] };
+      defaultItem.idNumber = Math.random(1000000);
+      const newList = [...titlesList];
+      newList.splice(indexOf + 1, 0, defaultItem);
+      setTitlesList(newList);
+    }
+  }
+
+  /**
+   * @param {Number} id - Identification of selected item.
+   *
+   * Find the item in the titles list and remove it.
+   */
+  function removeItem(id) {
+    let indexOf = null;
+
+    for (let i = 0; i < titlesList.length; i++) {
+      const currentItem = titlesList[i];
+      if (currentItem.idNumber === id) {
+        indexOf = i;
+        break;
+      }
+    }
+
+    if (indexOf >= 0) {
+      const newList = [...titlesList];
+      newList.splice(indexOf, 1);
+      setTitlesList(newList);
+    }
+  }
+
   return {
     // Values
     tab,
@@ -117,6 +205,12 @@ export default function useHeaders() {
     // Helper & Custom functions.
     clear,
     wereChangesMade,
+
+    // TitleList Functions
+    addItem,
+    insertItemAbove,
+    insertItemBelow,
+    removeItem
   };
 }
 
