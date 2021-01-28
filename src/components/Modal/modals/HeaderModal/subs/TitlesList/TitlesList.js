@@ -47,10 +47,10 @@ function TitlesList({ headers }) {
       {titlesList.map((t, i) => {
         return (
           <TitleItem
-            title={t.entry}
-            pageNumber={t.pageNumberInPdf}
+            // title={t.entry}
+            // pageNumber={t.pageNumberInPdf}
             key={i}
-            id={t.idNumber}
+            // id={t.idNumber}
             t={t}
             setTitlesList={setTitlesList}
             titlesList={titlesList}

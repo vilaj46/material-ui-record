@@ -8,16 +8,20 @@ import TitleMenu from "./subs/TitleMenu";
 import { useFile } from "../../../../../../../Context/FileProvider";
 
 export default function TitleItem({
-  title,
-  pageNumber,
   titlesList,
-  id,
   setTitlesList,
   insertItemAbove,
   insertItemBelow,
   removeItem,
   t,
 }) {
+  const { entry, pageNumberInPdf, idNumber} = t;
+  // Reassigning names. This should be switched.
+  // We call them titles on the front end and entries on the backend. Confusing!
+  const title = entry;
+  const pageNumber = pageNumberInPdf;
+  const id = idNumber;
+
   const [loaded, setLoaded] = useState(false);
   const [displayMenu, setDisplayMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState([0, 0, "", 0]);
